@@ -1,0 +1,16 @@
+{
+	"name": "form-validation-tool",
+
+	"authors": [
+		"Alexander Arabadzhiev <a.b.arabadzhiev@gmail.com>"
+	],
+
+	"version": "1.0.0",
+
+	"description": "Tool for validating correct forms and items",
+
+	"devDependencies": {
+		"async": "^2.4.0",
+		"jsdom": "^10.1.0"
+	}
+}
