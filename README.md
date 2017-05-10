@@ -8,6 +8,8 @@ First, make sure you have Node.js installed.
 
 ## Running Checks
 
+First put the content that you want to check inside /content folder, then run :
+
 ```
 $ node app
 ```
