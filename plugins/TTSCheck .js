@@ -7,7 +7,7 @@ var errorLogger = require('../errorLogger');
 var walker = require('../fileWalker');
 
 module.exports = {
-	name: "Prompt Tag Check",
+	name: "TTS Tag Check",
 
 	execute: function() {
 
@@ -20,11 +20,14 @@ module.exports = {
         async.each(items, function(item, callback){
         	JSDOM.fromFile(item, null).then(dom => {
 	        	var doc = dom.window.document;
-                var prompts = doc.querySelectorAll('prompt-text');
+                var prompts = doc.querySelectorAll('.text-to-speech');
                 async.each(prompts, function(tag, callback){
-	                if (tag.textContent.trim() == ''){
+	                if (!tag.hasAttribute('label') &&
+	                	!tag.hasAttribute('alt') &&
+	                	!tag.hasAttribute('alt-text') &&
+	                	!tag.hasAttribute('aria-label')){
 	                    var err = {
-	                        errorType: 'Empty Prompt Text tag',
+	                        errorType: 'Text To Speech tag with no TTS attribute',
 	                        file: item
 	                    };
 	                    errors.push(err);
