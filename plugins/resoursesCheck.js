@@ -42,6 +42,7 @@ module.exports = {
                     if (errors.length > 0){
                         errorLogger.logError(errors);
                     }
+                    errorLogger.logMessage(" ");
                 }
             });
         });
