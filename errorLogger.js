@@ -14,6 +14,15 @@ module.exports = {
 		}		
 	},
 
+	logCheckEnded: function (checkName, errCounter, errors) {
+		this.logMessage(checkName + " ended:");
+		this.logMessage(errCounter + ' errors found');
+		if (errors.length > 0){
+            this.logError(errors);
+        }
+        this.logMessage(" ");
+	},
+
 	logMessage: function (message) {		
 		fs.appendFileSync('./errors.txt', message + '\r\n');
 		console.log(message);

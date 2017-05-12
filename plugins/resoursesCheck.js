@@ -37,12 +37,7 @@ module.exports = {
             }).then(function(){
                 count++;
                 if (count == forms.length){
-                    errorLogger.logMessage(checkName + " ended:");
-                    errorLogger.logMessage(errCounter + ' errors found');
-                    if (errors.length > 0){
-                        errorLogger.logError(errors);
-                    }
-                    errorLogger.logMessage(" ");
+                    errorLogger.logCheckEnded(checkName, errCounter, errors);
                 }
             });
         });

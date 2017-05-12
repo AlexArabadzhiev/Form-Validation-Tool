@@ -17,14 +17,16 @@ module.exports = {
 		var checkName = this.name;
 		var errors = [];
 
-        async.each(items, function(item, callback){
+	    var ttsCheck = function(item) {
+	    	var item = item || items[0];
         	JSDOM.fromFile(item, null).then(dom => {
 	        	var doc = dom.window.document;
-                var prompts = doc.querySelectorAll('.text-to-speech');
-                async.each(prompts, function(tag, callback){
+                var ttsTags = doc.querySelectorAll('.text-to-speech');
+                async.each(ttsTags, function(tag, callback){
 	                if (!tag.hasAttribute('label') &&
 	                	!tag.hasAttribute('alt') &&
 	                	!tag.hasAttribute('alt-text') &&
+	                	!tag.hasAttribute('alttext') &&
 	                	!tag.hasAttribute('aria-label')){
 	                    var err = {
 	                        errorType: 'Text To Speech tag with no TTS attribute',
@@ -37,14 +39,13 @@ module.exports = {
 	        }).then(function(){
 	        	count++;
 	        	if (count == items.length){
-	        		errorLogger.logMessage(checkName + " ended:");
-	        		errorLogger.logMessage(errCounter + ' errors found');
-	        		if (errors.length > 0){
-                        errorLogger.logError(errors);
-                    }
-                    errorLogger.logMessage(" ");
+	        		errorLogger.logCheckEnded(checkName, errCounter, errors);
+	        	} else {
+	        		ttsCheck(items[count]);
 	        	}
 	        });
-	    });
+	    };
+
+	    ttsCheck();
 	}
 };
