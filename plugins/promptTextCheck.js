@@ -16,27 +16,28 @@ module.exports = {
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
+		var itemsLength = items.length;
 
-        async.each(items, function(item, callback){
-        	JSDOM.fromFile(item, null).then(dom => {
-	        	var doc = dom.window.document;
-                var prompts = doc.querySelectorAll('prompt-text');
-                async.each(prompts, function(tag, callback){
-	                if (tag.textContent.trim() == ''){
-	                    var err = {
-	                        errorType: 'Empty Prompt Text tag',
-	                        file: item
-	                    };
-	                    errors.push(err);
-	                    errCounter++;
-	                }
-	        	});
-	        }).then(function(){
-	        	count++;
-	        	if (count == items.length){
-	        		errorLogger.logCheckEnded(checkName, errCounter, errors);
-	        	}
-	        });
-	    });
+		async.each(items, function(item, callback){
+			JSDOM.fromFile(item, null).then(dom => {
+				var doc = dom.window.document;
+				var prompts = doc.querySelectorAll('prompt-text');
+				async.each(prompts, function(tag, callback){
+					if (tag.textContent.trim() == ''){
+						var err = {
+							errorType: 'Empty Prompt Text tag',
+							file: item
+						};
+						errors.push(err);
+						errCounter++;
+					}
+				});
+			}).then(function(){
+				count++;
+				if (count == itemsLength){
+					errorLogger.logCheckEnded(checkName, errCounter, errors);
+				}
+			});
+		});
 	}
 };
