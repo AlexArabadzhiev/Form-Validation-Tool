@@ -14,6 +14,7 @@ module.exports = {
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
+		var formsLength = forms.length;
 
 		async.each(forms, function(item, callback){
 			var manifestPath = './content/Forms/' + item + '/imsmanifest.xml';
@@ -36,7 +37,7 @@ module.exports = {
 				});
 			}).then(function(){
 				count++;
-				if (count == forms.length){
+				if (count == formsLength){
 					errorLogger.logCheckEnded(checkName, errCounter, errors);
 				}
 			});

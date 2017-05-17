@@ -16,6 +16,7 @@ module.exports = {
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
+		var itemsLength = items.length;
 
 		async.each(items, function(item, callback){
 			JSDOM.fromFile(item, null).then(dom => {
@@ -33,7 +34,7 @@ module.exports = {
 				});
 			}).then(function(){
 				count++;
-				if (count == items.length){
+				if (count == itemsLength){
 					errorLogger.logCheckEnded(checkName, errCounter, errors);
 				}
 			});

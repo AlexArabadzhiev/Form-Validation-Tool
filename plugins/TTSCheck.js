@@ -16,9 +16,9 @@ module.exports = {
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
+		var itemsLength = items.length;
 
 		var ttsCheck = function(item) {
-			var item = item || items[0];
 			JSDOM.fromFile(item, null).then(dom => {
 				var doc = dom.window.document;
 				var ttsTags = doc.querySelectorAll('.text-to-speech');
@@ -38,7 +38,7 @@ module.exports = {
 				});
 			}).then(function(){
 				count++;
-				if (count == items.length){
+				if (count == itemsLength){
 					errorLogger.logCheckEnded(checkName, errCounter, errors);
 				} else {
 					ttsCheck(items[count]);
@@ -46,6 +46,6 @@ module.exports = {
 			});
 		};
 
-		ttsCheck();
+		ttsCheck(items[0]);
 	}
 };
