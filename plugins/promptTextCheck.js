@@ -4,14 +4,14 @@ var async = require('async');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var errorLogger = require('../errorLogger');
-var walker = require('../fileWalker');
+var content = require('../contentManager');
 
 module.exports = {
 	name: "Prompt Tag Check",
 
 	execute: function() {
 
-		var items = walker.walk('./content/Items');
+		var items = content.items;
 		var count = 0;
 		var errCounter = 0;
 		var checkName = this.name;

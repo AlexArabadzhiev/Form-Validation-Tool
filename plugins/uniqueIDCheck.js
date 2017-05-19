@@ -1,16 +1,16 @@
 var fs = require('fs');
-var path = require('path');
 var async = require('async');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var errorLogger = require('../errorLogger');
-var forms = fs.readdirSync('./content/Forms');
+var content = require('../contentManager');
 
 module.exports = {
 	name: "Unique ID Check",
 
 	execute: function() {
 
+		var forms = content.forms;
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
@@ -20,14 +20,14 @@ module.exports = {
 		var formResponseDeclarationIdArray = [];
 
 		var walkForms = function(form) {
-			var manifestPath = './content/Forms/' + form + '/imsmanifest.xml';
+			var manifestPath = content.formsPath + form + '/imsmanifest.xml';
 			var currResources = [];
 			JSDOM.fromFile(manifestPath, null).then(dom => {
 				var doc = dom.window.document;
 				var resources = doc.querySelectorAll('resource');
 				async.each(resources, function(item, callback){
 					if (item.getAttribute('type') == 'imsqti_item_xmlv2p0') {
-						currResources.push("./content/Items/" + item.getAttribute('href'));
+						currResources.push(content.itemsPath + item.getAttribute('href'));
 					}
 				});
 			}).then(function(){
