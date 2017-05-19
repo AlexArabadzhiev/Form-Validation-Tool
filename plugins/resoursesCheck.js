@@ -2,8 +2,8 @@ var fs = require('fs');
 var async = require('async');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-var forms = fs.readdirSync('./content/Forms');
 var errorLogger = require('../errorLogger');
+var content = require('../contentManager');
 
 module.exports = {
 	name: "Resourse Check",
@@ -14,16 +14,17 @@ module.exports = {
 		var errCounter = 0;
 		var checkName = this.name;
 		var errors = [];
+		var forms = content.forms;
 		var formsLength = forms.length;
 
 		async.each(forms, function(item, callback){
-			var manifestPath = './content/Forms/' + item + '/imsmanifest.xml';
+			var manifestPath = content.formsPath + item + '/imsmanifest.xml';
 			JSDOM.fromFile(manifestPath, null).then(dom => {
 				var doc = dom.window.document;
 				var resources = doc.querySelectorAll('resource');
 				async.each(resources, function(item, callback){
 					if (item.getAttribute('type') == 'imsqti_item_xmlv2p0') {
-						var isHrefCorrect = fs.existsSync('./content/Items/' + item.getAttribute('href'));
+						var isHrefCorrect = fs.existsSync(content.itemsPath + item.getAttribute('href'));
 						if (!isHrefCorrect){
 							var err = {
 								errorType: 'Recource missing',
