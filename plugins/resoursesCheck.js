@@ -17,8 +17,8 @@ module.exports = {
 		var forms = content.forms;
 		var formsLength = forms.length;
 
-		async.each(forms, function(item, callback){
-			var manifestPath = content.formsPath + item + '/imsmanifest.xml';
+		async.each(forms, function(form, callback){
+			var manifestPath = content.formsPath + form + '/imsmanifest.xml';
 			JSDOM.fromFile(manifestPath, null).then(dom => {
 				var doc = dom.window.document;
 				var resources = doc.querySelectorAll('resource');
