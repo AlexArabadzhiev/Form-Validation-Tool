@@ -5,16 +5,24 @@ Tool for checking for errors in forms and items.
 ## Install Node
 
 First, make sure you have Node.js installed.
-Then run this script to install dependencies (async, JSdom): 
+Then run this scripts to install dependencies (async, JSdom): 
 
 ```
 $ npm install async -g
 $ npm install jsdom -g
 ```
 
-## Running Checks
+## Changing Path to content
 
-First go to contentManager.js and rename the PATH STRING to the folder where your content is, then run :
+Go to contentManager.js and rename "contentPath" to the path folder where your content is.
+
+## Choosing Checks
+
+Go to pluginManager.js and change to TRUE the checks you want to be executed.
+
+## Choosing Checks
+
+Open console in the main folder of the tool and run:
 
 ```
 $ node app
