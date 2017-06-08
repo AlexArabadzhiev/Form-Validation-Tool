@@ -21,7 +21,7 @@ module.exports = {
 		async.each(items, function(item, callback){
 			JSDOM.fromFile(item, null).then(dom => {
 				var doc = dom.window.document;
-				var prompts = doc.querySelectorAll('prompt-text');
+				var prompts = doc.querySelectorAll('prompt-text, prompt');
 				async.each(prompts, function(tag, callback){
 					if (tag.textContent.trim() == ''){
 						var err = {
