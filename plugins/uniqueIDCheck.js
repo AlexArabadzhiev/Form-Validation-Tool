@@ -31,17 +31,17 @@ module.exports = {
 					}
 				});
 			}).then(function(){
+				if(currResources.length > 0) {
+					var formObject = {
+						name: form,
+						resources: currResources
+					};
+					formResponseDeclarationIdArray.push(formObject);
+				}
 				countManifest++;
 				if (countManifest == forms.length) {
 					walkForm(formResponseDeclarationIdArray[0]);
 				} else {
-					if(currResources.length > 0) {
-						var formObject = {
-							name: form,
-							resources: currResources
-						};
-						formResponseDeclarationIdArray.push(formObject);
-					}
 					walkForms(forms[countManifest]);
 				}
 			});

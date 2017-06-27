@@ -1,0 +1,10 @@
+{
+  "name": "forms-validation-tool",
+  "version": "1.0.0",
+  "description": "A tool for checking for errors in forms and items",
+  "author": "Alexander Arabadzhiev <aarabadzhiev@questarai.com>",
+  "dependencies": {
+    "async": "2.5.0",
+    "jsdom": "11.0.0"
+  }
+}

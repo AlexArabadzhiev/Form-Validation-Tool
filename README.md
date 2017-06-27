@@ -8,8 +8,7 @@ First, make sure you have Node.js installed.
 Then run this scripts to install dependencies (async, JSdom): 
 
 ```
-$ npm install async -g
-$ npm install jsdom -g
+$ npm install
 ```
 
 ## Changing Path to content
@@ -20,7 +19,7 @@ Go to contentManager.js and rename "contentPath" to the path folder where your c
 
 Go to pluginManager.js and change to TRUE the checks you want to be executed.
 
-## Choosing Checks
+## Running Checks
 
 Open console in the main folder of the tool and run:
 
